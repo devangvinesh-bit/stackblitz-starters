@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Hub | Smart Learning</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f5fc;
+    color: #26334d;
+}
+
+header {
+    background: #5368d5;
+    color: white;
+    padding: 25px 8%;
+}
+
+header h1 {
+    font-size: 30px;
+}
+
+header p {
+    margin-top: 8px;
+}
+
+nav {
+    background: white;
+    padding: 16px 8%;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5368d5;
+    font-weight: bold;
+}
+
+main {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.welcome {
+    background: linear-gradient(120deg, #667eea, #764ba2);
+    color: white;
+    padding: 35px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px #e0e3ef;
+}
+
+.card h3 {
+    color: #5368d5;
+    margin-bottom: 15px;
+}
+
+.card p {
+    line-height: 1.7;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccd2e5;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button {
+    background: #5368d5;
+    color: white;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+button:hover {
+    background: #394da9;
+}
+
+li {
+    margin: 12px 0;
+    list-style: none;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 35px;
+    color: #777;
+}
+
+section {
+    margin-bottom: 25px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 Student Hub</h1>
+    <p>Your personal space for learning and success!</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#planner">Study Planner</a>
+    <a href="#timetable">Timetable</a>
+    <a href="#tasks">Homework</a>
+    <a href="#notes">Notes</a>
+</nav>
+
+<main>
+
+<section class="welcome" id="home">
+    <h2>Welcome to Student Hub!</h2>
+    <p>Organise your studies, manage your time
+    and achieve your academic goals.</p>
+</section>
+
+<section class="cards">
+
+    <div class="card" id="planner">
+        <h3>📚 Study Planner</h3>
+        <p>Plan your daily learning activities.</p>
+        <ul>
+            <li>Mathematics</li>
+            <li>Science</li>
+            <li>English</li>
+            <li>Social Science</li>
+        </ul>
+    </div>
+
+    <div class="card" id="timetable">
+        <h3>🕒 My Timetable</h3>
+        <p>Monday – Mathematics</p>
+        <p>Tuesday – Science</p>
+        <p>Wednesday – English</p>
+        <p>Thursday – Social Science</p>
+        <p>Friday – Computer Science</p>
+    </div>
+
+    <div class="card" id="tasks">
+        <h3>✅ Homework Tracker</h3>
+        <input id="taskInput"
+        type="text" placeholder="Enter your homework">
+
+        <button onclick="addTask()">Add Task</button>
+
+        <ul id="taskList"></ul>
+    </div>
+
+    <div class="card" id="notes">
+        <h3>📝 My Notes</h3>
+        <textarea id="noteInput"
+        rows="5" placeholder="Write your notes here..."></textarea>
+
+        <button onclick="saveNotes()">Save Notes</button>
+        <p id="noteStatus"></p>
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Student Hub | Learn • Grow • Succeed</p>
+</footer>
+
+<script>
+
+function addTask() {
+    let input = document.getElementById("taskInput");
+    let task = input.value.trim();
+
+    if (task === "") {
+        alert("Please enter a task!");
+        return;
+    }
+
+    let li = document.createElement("li");
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.style.width = "auto";
+
+    let label = document.createElement("span");
+    label.textContent = " " + task;
+
+    checkbox.addEventListener("change", function() {
+        label.style.textDecoration =
+        checkbox.checked ? "line-through" : "none";
+    });
+
+    li.appendChild(checkbox);
+    li.appendChild(label);
+
+    document.getElementById("taskList").appendChild(li);
+    input.value = "";
+}
+
+function saveNotes() {
+    let notes = document.getElementById("noteInput").value;
+    localStorage.setItem("studentNotes", notes);
+
+    document.getElementById("noteStatus").textContent =
+    "Notes saved successfully!";
+}
+
+window.onload = function() {
+    document.getElementById("noteInput").value =
+    localStorage.getItem("studentNotes") || "";
+};
+
+</script>
+
+</body>
+</html> 
